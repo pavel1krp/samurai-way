@@ -11,6 +11,8 @@ import {
 import React from "react";
 import {Users} from "./Users";
 import {Preloader} from "../Common/Preloader/Preloader";
+import {compose} from "redux";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 export class UsersApiComponent extends React.Component<usersAllStateType> {
 
@@ -80,10 +82,13 @@ const mapStateToProps = (state: StatePropsType): mapStateToPropsType => {
         followingInProgress: state.usersPage.followingInProgress
     }
 }
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {
+        toggle, setUsers, setCurrentPage,
+        setTotalUserCount, toggleIsFetching, toggleFollowingInProgressAC,
+        getUsersTC,unFollowTC,followTC
+    }),
+    WithAuthRedirect
+)(UsersApiComponent)
 
-export const UsersContainer = connect(mapStateToProps, {
-    toggle, setUsers, setCurrentPage,
-    setTotalUserCount, toggleIsFetching, toggleFollowingInProgressAC,
-    getUsersTC,unFollowTC,followTC
-})(UsersApiComponent)
 

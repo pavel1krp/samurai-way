@@ -29,8 +29,20 @@ export const usersAPI = {
         return UrlWithCredentials.get('auth/me')
     },
     getProfile(userid: string) {
-        return UrlWithOutCredentials.get(`profile/${userid ? userid : 2}`)
+        console.log('PLEASE USE PROFILEAPI OBJECT')
+        return profileAPI.getProfile(userid)
     }
+}
+export const profileAPI = {
+    getProfile(userid: string) {
+        return UrlWithOutCredentials.get(`profile/${userid ? userid : 2}`)
+    },
+    getStatus(userid: string) {
+        return UrlWithOutCredentials.get(`status/${userid}`, )
+    },
+    changeStatus(status: string) {
+        return UrlWithOutCredentials.put(`status`,{status})
+    },
 }
 
 

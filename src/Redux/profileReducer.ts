@@ -1,8 +1,9 @@
 import {v1} from "uuid";
-import {ActionType, postDatapropsType, ProfilePageType, UserProfileType} from "../Types/types";
+import {ActionType, postDatapropsType, UserProfileType} from "../Types/types";
 import {Dispatch} from "redux";
-import axios from "axios";
-import {usersAPI} from "../api";
+import {profileAPI, usersAPI} from "../api";
+import {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {AppStateType} from "./redux-store";
 
 export const ADD_POST = "ADD-POST"
 export const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
@@ -11,6 +12,7 @@ type initialStateType = {
     postData:postDatapropsType[]
     newPostText:string
     profile:UserProfileType
+    status:string
 }
 
 let initialState:initialStateType = {
@@ -64,7 +66,8 @@ let initialState:initialStateType = {
             small:'',
         },
         userId: 0
-    }
+    },
+    status:''
 }
 
 export const profileReducer = (state:initialStateType = initialState, action:ActionType):any =>{
@@ -83,6 +86,7 @@ export const profileReducer = (state:initialStateType = initialState, action:Act
         }
         case UPDATE_NEW_POST_TEXT:return {...state, newPostText: action.newText}
         case "SET-USER-PROFILE": return {...state, profile: action.profile  }
+        case "SET-STATUS":return {...state, status:action.status}
         case 'POST-LIKE':return  {...state, postData:state.postData
                 .map(el=> el.id === action.postId?{...el, likesCount: el.likesCount+1} :el )  }
         default:return state
@@ -90,18 +94,37 @@ export const profileReducer = (state:initialStateType = initialState, action:Act
 }
 export type SetUserProfileType = ReturnType<typeof setUserProfileAC>
 export type PostLikeAcType = ReturnType<typeof postLikeAC>
+export type SetStatusAcType = ReturnType<typeof setStatusAC>
 export const postLikeAC = (postId:string)=>({type:'POST-LIKE', postId}as const)
 export const setUserProfileAC =  (profile:UserProfileType)=> ({type: 'SET-USER-PROFILE', profile} as const)
 export const addPostAC = ():ActionType=> ({type:ADD_POST})
 export const updateNewPostTextAC = (newText:string):ActionType=>({type:UPDATE_NEW_POST_TEXT, newText})
+export const setStatusAC = (status:string)=>({type:"SET-STATUS", status}as const)
 
-export const getProfileTC = (Id:string)=>{
-    return (dispatch: Dispatch<ActionType>) =>{
-        // axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userid? userid:2}`)
+export type ThunkCreatorType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, ActionType>
+
+export const getProfileTC = (Id:string): ThunkCreatorType =>{
+    return (dispatch) =>{
             usersAPI.getProfile(Id)
             .then(response=>
            dispatch(setUserProfileAC(response.data))
         )
 
+    }
+}
+export const getUserStatusTC = (userId:string)=>{
+    return(dispatch:Dispatch<ActionType>)=>{
+    profileAPI.getStatus(userId).then(res=>{
+        dispatch(setStatusAC(res.data))
+    })
+    }
+}
+export const updateStatusTC = (status:string)=>{
+    return(dispatch:Dispatch<ActionType>)=>{
+        profileAPI.changeStatus(status).then(res=>{
+            if(res.data.resultCode === 0){
+                dispatch(setStatusAC(res.data))
+            }
+        })
     }
 }

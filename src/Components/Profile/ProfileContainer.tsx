@@ -1,10 +1,10 @@
-import React, {FC} from 'react';
+import React from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {getProfileTC, postLikeAC,} from "../../Redux/profileReducer";
+import {getProfileTC, getUserStatusTC, postLikeAC, ThunkCreatorType, updateStatusTC,} from "../../Redux/profileReducer";
 import {StatePropsType, UserProfileType} from "../../Types/types";
-import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
-import {compose} from "redux";
+import {RouteComponentProps, withRouter} from "react-router-dom";
+import {compose} from "redux"
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 class ProfileContainer extends React.Component<AllPropsProfileContainerType> {
@@ -15,6 +15,7 @@ class ProfileContainer extends React.Component<AllPropsProfileContainerType> {
             userId = '2'
         }
         this.props.getProfileTC(this.props.match.params.userId)
+        this.props.getUserStatusTC(userId)
     }
 
     render() {
@@ -27,21 +28,28 @@ class ProfileContainer extends React.Component<AllPropsProfileContainerType> {
 type AllPropsProfileContainerType = RouteComponentProps<GetFromRoutType> & PropsProfileContainerType
 type MapStateToPropsType = {
     profile: UserProfileType
+    status:string
 }
 type GetFromRoutType = {
-    userId: string
+    userId: string;
 }
 type MapDispatchType = {
     postLikeAC: (id: string) => void
-    getProfileTC: (id: string) => any
+    getProfileTC: (id: string) => ThunkCreatorType
+    getUserStatusTC:(id:string)=>Function
+    updateStatusTC:(status:string)=>any
 }
 type PropsProfileContainerType = MapStateToPropsType & MapDispatchType
 
 const mapStateToProps = (state: StatePropsType): MapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
+        status: state.profilePage.status
     }
 }
-
-export default WithAuthRedirect(compose<FC>(connect(mapStateToProps, {postLikeAC, getProfileTC}), withRouter)(ProfileContainer))
-
+export default compose<React.ComponentType>(
+    connect(mapStateToProps,{getProfileTC,postLikeAC,getUserStatusTC,updateStatusTC}),
+    withRouter,
+    WithAuthRedirect
+)
+(ProfileContainer)
