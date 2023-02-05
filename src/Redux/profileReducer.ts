@@ -136,6 +136,7 @@ export const updateStatusTC = (status: string) => {
                     console.log(response)
                     dispatch(setStatus(status))
                 }
-            })
+            }).then(()=>profileAPI.getStatus('27343'))
+            .then(res=>console.log(res.data))
     }
 }

@@ -4,11 +4,8 @@ const UrlWithCredentials = axios.create({
     withCredentials: true,
     baseURL: `https://social-network.samuraijs.com/api/1.0/`,
     headers: {
-        "API-KEY": '1d84894c-5c25-4929-957d-5a81bfbf3d58'
+        "API-KEY": '7f79c4fe-a8ab-4097-8123-03411285985e'
     }
-})
-const UrlWithOutCredentials = axios.create({
-    baseURL: `https://social-network.samuraijs.com/api/1.0/`,
 })
 
 export const usersAPI = {
@@ -23,7 +20,7 @@ export const usersAPI = {
         return UrlWithCredentials.delete(`follow/${id}`, {})
     },
     getUsersWithOutCredentials() {
-        return UrlWithOutCredentials.get('')
+        return UrlWithCredentials.get('')
     },
     authMe() {
         return UrlWithCredentials.get('auth/me')
@@ -31,10 +28,10 @@ export const usersAPI = {
 }
 export const profileAPI = {
     getProfile(userid: string) {
-        return UrlWithOutCredentials.get(`profile/${userid ? userid : 2}`)
+        return UrlWithCredentials.get(`profile/${userid ? userid : 2}`)
     },
     getStatus(userid: string) {
-        return UrlWithOutCredentials.get(`profile/status/${userid}`, )
+        return UrlWithCredentials.get(`profile/status/${userid}`, )
     },
     changeStatus(status: string) {
         return UrlWithCredentials.put(`profile/status`,{status})

@@ -11,5 +11,6 @@
 }
 
 .app-wrapper-content {
+    min-height: 100vh;
     background-color: #379683 ;
 }
