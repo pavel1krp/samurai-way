@@ -5,7 +5,7 @@ import {
     ToggleFollowingInProgressAC,
     toggleIsFetchingType
 } from "../Redux/usersReduser";
-import {PostLikeAcType, SetUserProfileType} from "../Redux/profileReducer";
+import {PostLikeAcType, SetStatusType, SetUserProfileType} from "../Redux/profileReducer";
 
 export type authDataType = {
     userId:string
@@ -59,6 +59,7 @@ export type ProfilePageType = {
     postData: postDatapropsType[],
     newPostText: string,
     profile:UserProfileType
+    status:string
 }
 export type SideBarType = {}
 export type StatePropsType = {
@@ -125,5 +126,6 @@ export type ActionType = AddPostActionType|
     SetUsersACType|setCurrentPageACType|
     setTotalUserCountACType|toggleIsFetchingType|
     SetUserProfileType|PostLikeAcType|
-    ToggleFollowingInProgressAC|SetUsersType
+    ToggleFollowingInProgressAC|SetUsersType|
+    SetStatusType
 

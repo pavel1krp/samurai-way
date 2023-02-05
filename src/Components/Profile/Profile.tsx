@@ -8,14 +8,17 @@ import {Redirect} from "react-router-dom";
 // }
 type PropsType = {
     profile: UserProfileType
+    status: string
+    updateStatusTC: (status: string) => any
 }
-const Profile = (props:PropsType) => {
+const Profile = (props: PropsType) => {
     return (
-        <div >
-            <ProfileInfo  src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnMBNcEe_EGXuh-UuvXVFkcXaDoqFS2TAbwQ&usqp=CAU'}
-                          profile={props.profile}
+        <div>
+            <ProfileInfo
+                src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnMBNcEe_EGXuh-UuvXVFkcXaDoqFS2TAbwQ&usqp=CAU'}
+                profile={props.profile} status={props.status} updateStatusTC={props.updateStatusTC}
             />
-            < MyPostContainer />
+            < MyPostContainer/>
         </div>
     );
 };

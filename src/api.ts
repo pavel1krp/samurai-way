@@ -27,10 +27,18 @@ export const usersAPI = {
     },
     authMe() {
         return UrlWithCredentials.get('auth/me')
-    },
+    }
+}
+export const profileAPI = {
     getProfile(userid: string) {
         return UrlWithOutCredentials.get(`profile/${userid ? userid : 2}`)
-    }
+    },
+    getStatus(userid: string) {
+        return UrlWithOutCredentials.get(`profile/status/${userid}`, )
+    },
+    changeStatus(status: string) {
+        return UrlWithCredentials.put(`profile/status`,{status})
+    },
 }
 
 

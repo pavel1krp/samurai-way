@@ -14,13 +14,14 @@ import ProfileStatus from "./ProfileStatus";
 type ProfileInfoPropsType = {
     src: string,
     profile: UserProfileType
+    status: string
+    updateStatusTC: (status: string) => any
 }
 
 const ProfileInfo = (props: ProfileInfoPropsType) => {
     if (!props.profile) {
         return <Preloader />
     }
-    console.log(props.profile.photos)
     return (
         <div>
             <div>
@@ -49,7 +50,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                     {props.profile.lookingForAJob?<p>{props.profile.lookingForAJob}</p>: null}
                     {props.profile.lookingForAJobDescription?<p>{props.profile.lookingForAJobDescription}</p>: null}
                     {props.profile.aboutMe?<p>{props.profile.aboutMe}</p>: null}
-                    <ProfileStatus />
+                    <ProfileStatus updateStatusTC={props.updateStatusTC} status={props.status} />
                 </div>
             </div>
         </div>

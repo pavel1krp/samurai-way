@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {getProfileTC, postLikeAC,} from "../../Redux/profileReducer";
+import {getProfileTC, getStatusTC, postLikeAC, setStatus, updateStatusTC,} from "../../Redux/profileReducer";
 import {StatePropsType, UserProfileType} from "../../Types/types";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux"
@@ -14,12 +14,13 @@ class ProfileContainer extends React.Component<AllPropsProfileContainerType> {
         if (!userId) {
             userId = '2'
         }
-        this.props.getProfileTC(this.props.match.params.userId)
+        this.props.getProfileTC(userId)
+        this.props.getStatusTC(userId)
     }
 
     render() {
 
-        return <Profile profile={this.props.profile}/>
+        return <Profile profile={this.props.profile} status={this.props.status} updateStatusTC={this.props.updateStatusTC}/>
     }
 
 }
@@ -27,23 +28,28 @@ class ProfileContainer extends React.Component<AllPropsProfileContainerType> {
 type AllPropsProfileContainerType = RouteComponentProps<GetFromRoutType> & PropsProfileContainerType
 type MapStateToPropsType = {
     profile: UserProfileType
+    status:string
 }
 type GetFromRoutType = {
     userId: string
 }
 type MapDispatchType = {
     postLikeAC: (id: string) => void
+    setStatus:(status:string)=>void
     getProfileTC: (id: string) => any
+    getStatusTC:(userId:string)=>any
+    updateStatusTC:(status:string)=>any
 }
 type PropsProfileContainerType = MapStateToPropsType & MapDispatchType
 
 const mapStateToProps = (state: StatePropsType): MapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
+        status:state.profilePage.status
     }
 }
 export default compose<React.ComponentType>(
-    connect(mapStateToProps,{getProfileTC,postLikeAC}),
+    connect(mapStateToProps,{getProfileTC,postLikeAC,getStatusTC,updateStatusTC,setStatus}),
     withRouter,
     WithAuthRedirect
 )
