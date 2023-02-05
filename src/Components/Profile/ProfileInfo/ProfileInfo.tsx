@@ -46,6 +46,9 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                                 props.profile.contacts.vk+props.profile.contacts.twitter+props.profile.contacts.youtube? null:<p>Пользователь не оставил контактов.</p>}
                         </div>
                     </div>
+                    {props.profile.lookingForAJob?<p>{props.profile.lookingForAJob}</p>: null}
+                    {props.profile.lookingForAJobDescription?<p>{props.profile.lookingForAJobDescription}</p>: null}
+                    {props.profile.aboutMe?<p>{props.profile.aboutMe}</p>: null}
                     <ProfileStatus />
                 </div>
             </div>
