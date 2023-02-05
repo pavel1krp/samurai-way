@@ -1,4 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
+import {ProfilePageType} from "../../../Types/types";
 
 // type ProfileStatusPropsType = {
 //     status:string
@@ -8,9 +9,12 @@ type PropsType = {
     status: string
     updateStatusTC: (status: string) => any
 }
-
+type LocalProfileStateType = {
+    editMode:boolean
+    status:string
+}
 class ProfileStatus extends React.Component<PropsType> {
-    state = {
+    state:LocalProfileStateType = {
         editMode: false,
         status: this.props.status
     }
@@ -26,6 +30,11 @@ class ProfileStatus extends React.Component<PropsType> {
             {
                 status: e.currentTarget.value
             })
+    }
+    componentDidUpdate(prevProps:PropsType,prevState:LocalProfileStateType) {
+        if(prevProps.status!== this.props.status){
+            this.setState({status:this.props.status})
+        }
     }
 
     render() {

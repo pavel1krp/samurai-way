@@ -110,7 +110,6 @@ export const setStatus = (status: string) => ({type: 'SET-STATUS', status} as co
 
 export const getProfileTC = (Id: string) => {
     return (dispatch: Dispatch<ActionType>) => {
-        // axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userid? userid:2}`)
         profileAPI.getProfile(Id)
             .then(response =>
                 dispatch(setUserProfileAC(response.data))
