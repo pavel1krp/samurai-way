@@ -14,7 +14,6 @@ class ProfileStatus extends React.Component<PropsType> {
         editMode: false,
         status: this.props.status
     }
-
     toggleEditMode() {
         this.setState({
             editMode: !this.state.editMode
@@ -31,15 +30,17 @@ class ProfileStatus extends React.Component<PropsType> {
 
     render() {
         return (
-            <div>
-                {
-                    this.state.editMode ?
-                        <input onChange={this.onStatusChange.bind(this)} autoFocus onBlur={this.toggleEditMode.bind(this)}
-                               value={this.state.status} type="text"/> :
-                        <div onDoubleClick={this.toggleEditMode.bind(this)}>{this.props.status? this.props.status: '---'}</div>
-                }
-            </div>
-        )
+        2>1?
+        <div>
+            {
+                this.state.editMode ?
+                    <input onChange={this.onStatusChange.bind(this)} autoFocus onBlur={this.toggleEditMode.bind(this)}
+                           value={this.state.status} type="text"/> :
+                    <div
+                        onDoubleClick={this.toggleEditMode.bind(this)}>{this.props.status ? this.props.status : '---'}</div>
+            }
+        </div>:null
+    )
     }
 }
 

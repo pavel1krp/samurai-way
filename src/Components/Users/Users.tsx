@@ -32,13 +32,6 @@ export const Users = (props: UserPropsType) => {
         const follow = () => {
             console.log(el.id)
             followTC(el.id)
-            // toggleFollowingInProgressAC(true,el.id)
-            // usersAPI.followUser(el.id).then(response=>{
-            //         if(response.data.resultCode===0){
-            //             toggle(el.id)
-            //         }
-            //     toggleFollowingInProgressAC(false,el.id)
-            //     })
         }
         const unFollow = ()=>{
             unFollowTC(el.id)
