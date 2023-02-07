@@ -1,10 +1,15 @@
 import React from "react";
+import {LoginForm} from "./LoginForm";
 
 type LoginPropsType ={
 
 }
 
 export const Login =(props:LoginPropsType)=>{
-    return <h1>Login</h1>
+    return <div>
+        <h1>Login</h1>
+        <LoginForm/>
+    </div>
+
 }
 
