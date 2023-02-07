@@ -5,6 +5,7 @@ import DialogItem from "./DialogItem/DialogItem";
 import {MessagesDataType} from "../../App";
 import {DialogDataType} from "../../Types/types";
 import {Redirect} from "react-router-dom";
+import {AddMessageForm} from "./Message/AddMessageForm";
 
 
 export type allDialogTypes ={
@@ -41,8 +42,9 @@ const Dialogs = (props:DialogPropsType) => {
             </div>
         </div>
             <div className={s.formDiv}>
-                <input onChange={onMessageChangeHandler} className={s.sendInput} value={props.newMessageText} type="text"/>
-                <button className={s.sendButton} onClick={addMessageHandler}>Send message</button>
+                <AddMessageForm callback={addMessageHandler}/>
+                <input onChange={onMessageChangeHandler}  value={props.newMessageText} type="text"/>
+                <button onClick={addMessageHandler}>Send message</button>
             </div>
 
         </>
