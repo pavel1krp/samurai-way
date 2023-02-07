@@ -12,7 +12,6 @@ const reducers = combineReducers({
     sideBar: sideBarReducer,
     usersPage: usersReducer,
     auth: authReducer,
-
 })
 type ReducersType = typeof reducers
 export type AppStateType = ReturnType<ReducersType>
