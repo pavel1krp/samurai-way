@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import {useForm} from "react-hook-form";
 import styles from "./login.module.css";
 
 export function LoginForm() {
@@ -7,31 +7,35 @@ export function LoginForm() {
         register,
         handleSubmit,
         watch,
-        formState: { errors }
+        formState: {errors},
     } = useForm({
         defaultValues: {
-            example: "",
-            exampleRequired: ""
+            Login: "",
+            Password: ""
         }
     });
 
-    console.log(watch("example")); // you can watch individual input by pass the name of the input
+    console.log(watch("Password")); // you can watch individual input by pass the name of the input
 
     return (
         <form className={styles.form}
-            onSubmit={handleSubmit((data) => {
-                alert(JSON.stringify(data));
-            })}
+              onSubmit={handleSubmit((data) => {
+                  alert(JSON.stringify(data));
+              })}
         >
             <label className={styles.labelForInput}>Example</label>
-            <input className={styles.input} {...register("example")} defaultValue="test" />
-            <label  className={styles.labelForInput}>ExampleRequired</label>
             <input className={styles.input}
-                {...register("exampleRequired", { required: true, maxLength: 10 })}
+                   {...register("Login", {required: true, maxLength: 12})} defaultValue="test"
             />
-            {errors.exampleRequired && <p>This field is required</p>}
-            <input className={styles.submitButton} type="submit" />
-        </form >
+            {errors.Login && <p>This field is required</p>}
+            <label className={styles.labelForInput}>Pass</label>
+            <input className={styles.input}
+                   {...register("Password", {required: "Field required", maxLength: 10})}
+            />
+            {errors.Password && <p>This field is required</p>}
+            <div><input type="checkbox"/> remember me</div>
+            <input className={styles.submitButton} type="submit"/>
+        </form>
     );
 }
 
