@@ -1,0 +1,44 @@
+body {
+    background: #0e101c;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+}
+
+.form {
+    max-width: 500px;
+    margin: 0 auto;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+}
+
+.labelForInput {
+    color: white;
+}
+
+.submitButton {
+    background: #7395AE;
+    color: white;
+    text-transform: uppercase;
+    border: none;
+    margin-top: 40px;
+    padding: 20px;
+    font-size: 16px;
+    font-weight: 100;
+    letter-spacing: 10px;
+}
+.submitButton:hover{
+    background-color: #557A95;
+}
+
+.input {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid white;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}

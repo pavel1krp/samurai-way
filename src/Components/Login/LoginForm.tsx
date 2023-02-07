@@ -1,48 +1,37 @@
-// import React from 'react';
-//
-//
-// export const LoginForm = () => {
-//     return
-//     // return   <form action="">
-//     //     <div>
-//     //         <input type="text" placeholder={'Login'}/>
-//     //     </div>
-//     //     <div>
-//     //         <input type="text" placeholder={'Password'}/>
-//     //     </div>
-//     //     <div>
-//     //         <input type="checkbox"/> remember me
-//     //     </div>
-//     //     <div>
-//     //         <button>Login</button>
-//     //     </div>
-//     // </form>;
-// };
-import { useForm, SubmitHandler } from "react-hook-form";
+import React from "react";
+import { useForm } from "react-hook-form";
+import styles from "./login.module.css";
 
-type Inputs = {
-    example: string,
-    exampleRequired: string,
-};
+export function LoginForm() {
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors }
+    } = useForm({
+        defaultValues: {
+            example: "",
+            exampleRequired: ""
+        }
+    });
 
-export  function LoginForm() {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>();
-    const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
-
-    console.log(watch("example")) // watch input value by passing the name of it
+    console.log(watch("example")); // you can watch individual input by pass the name of the input
 
     return (
-        /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
-        <form onSubmit={handleSubmit(onSubmit)}>
-            {/* register your input into the hook by invoking the "register" function */}
-            <input defaultValue="test" {...register("example")} />
-
-            {/* include validation with required or other standard HTML validation rules */}
-            <input {...register("exampleRequired", { required: true })} />
-            {/* errors will return when field validation fails  */}
-            {errors.exampleRequired && <span>This field is required</span>}
-
-            <input type="submit" />
-        </form>
+        <form className={styles.form}
+            onSubmit={handleSubmit((data) => {
+                alert(JSON.stringify(data));
+            })}
+        >
+            <label className={styles.labelForInput}>Example</label>
+            <input className={styles.input} {...register("example")} defaultValue="test" />
+            <label  className={styles.labelForInput}>ExampleRequired</label>
+            <input className={styles.input}
+                {...register("exampleRequired", { required: true, maxLength: 10 })}
+            />
+            {errors.exampleRequired && <p>This field is required</p>}
+            <input className={styles.submitButton} type="submit" />
+        </form >
     );
 }
+
