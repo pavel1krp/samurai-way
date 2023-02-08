@@ -16,6 +16,18 @@ export function LoginForm() {
     });
 
     console.log(watch("Password")); // you can watch individual input by pass the name of the input
+    const passOptions =
+        {
+            required: "Field required",
+            maxLength: {
+                value: 16,
+                message: 'max 16 symbols'
+            },
+            minLength: {
+                value: 8,
+                message: 'min 6 symbols'
+            }
+        }
 
     return (
         <form className={styles.form}
@@ -23,16 +35,19 @@ export function LoginForm() {
                   alert(JSON.stringify(data));
               })}
         >
-            <label className={styles.labelForInput}>Example</label>
-            <input className={styles.input}
-                   {...register("Login", {required: true, maxLength: 12})} defaultValue="test"
-            />
+            <label className={styles.labelForInput}>Login
+                <input className={styles.input}
+                       {...register("Login", {required: true, minLength: 3, maxLength: 12})} defaultValue="test"
+                />
+            </label>
             {errors.Login && <p>This field is required</p>}
-            <label className={styles.labelForInput}>Pass</label>
-            <input className={styles.input}
-                   {...register("Password", {required: "Field required", maxLength: 10})}
-            />
-            {errors.Password && <p>This field is required</p>}
+            <label className={styles.labelForInput}>Password
+                <input className={styles.input}
+                       {...register("Password", passOptions)}
+                />
+            </label>
+            <div>{errors.Password && <p>{errors?.Password?.message ||
+                'Error'}</p>}</div>
             <div><input type="checkbox"/> remember me</div>
             <input className={styles.submitButton} type="submit"/>
         </form>

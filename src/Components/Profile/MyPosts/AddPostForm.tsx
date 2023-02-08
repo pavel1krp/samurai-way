@@ -3,7 +3,9 @@ import {SubmitHandler, useForm} from "react-hook-form"
 import styles from './MyPosts.module.css'
 
 export const AddPostForm: React.FC<AddPostFormPropsType> = ({callback}) => {
-    const {register, handleSubmit, reset} = useForm<FormInputs>()
+    const {register,
+        handleSubmit,
+        reset} = useForm<FormInputs>()
     const onSubmit: SubmitHandler<FormInputs> = data => {
         callback(data.newMessage)
         reset()
