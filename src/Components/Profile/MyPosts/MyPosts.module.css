@@ -7,9 +7,16 @@
 .postsBlock{
     padding: 10px;
 }
-.textArea{
+.formInput{
     resize: none;
+    min-height: 30px ;
+    min-width: 200px;
 }
+
 .myPost{
     font-size: 20px;
+}
+.submitButton{
+    width: 100px;
+    margin-left: 20px;
 }

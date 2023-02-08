@@ -24,13 +24,12 @@
     justify-content: center;
     margin: 10px;
 }
-.sendInput{
-    width: 400px;
-}
+
 .submitButton{
     width: 150px;
     background-color: #557A95;
     border: none;
+    margin-left: 20px;
 }
 .addMessageForm{
     margin-left: 21%;
