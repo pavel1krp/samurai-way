@@ -24,10 +24,8 @@ type DialogPropsType ={
 const Dialogs = (props:DialogPropsType) => {
     const mapMessages = props.dialogState.messagesData.map(el=> <Message key={el.id} message={el.message}/>)
     const mapDialogs = props.dialogState.dialogsData.map(el => <DialogItem key={el.id} name={el.name} id={el.id}/>)
-    const onMessageChangeHandler = (e:ChangeEvent<HTMLInputElement>)=>{
-        props.updateMessage(e.currentTarget.value)
-    }
-    const addMessageHandler = ()=>{
+    const addMessageHandler = (message: string)=>{
+        props.updateMessage(message)
         props.addMessage()
     }
     if(props.isAuth===false) return <Redirect to={"/login"}/>
@@ -43,8 +41,6 @@ const Dialogs = (props:DialogPropsType) => {
         </div>
             <div className={s.formDiv}>
                 <AddMessageForm callback={addMessageHandler}/>
-                <input onChange={onMessageChangeHandler}  value={props.newMessageText} type="text"/>
-                <button onClick={addMessageHandler}>Send message</button>
             </div>
 
         </>
