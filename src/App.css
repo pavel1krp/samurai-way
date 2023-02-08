@@ -1,3 +1,6 @@
+.body{
+    margin: 0;
+}
 .app-wrapper {
     display: grid;
     grid-template-rows: 60px 1fr;
