@@ -6,6 +6,10 @@
 }
 .dialogs{
     padding: 10px;;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 20px;
 }
 .dialogs .active{
     color: gold;
